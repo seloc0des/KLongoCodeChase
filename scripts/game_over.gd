@@ -1,11 +1,12 @@
-extends Control
+extends CanvasLayer
 
-@onready var final_score_label: Label = $Panel/VBoxContainer/FinalScoreLabel
-@onready var final_distance_label: Label = $Panel/VBoxContainer/FinalDistanceLabel
-@onready var orbs_collected_label: Label = $Panel/VBoxContainer/OrbsCollectedLabel
-@onready var new_high_score_label: Label = $Panel/VBoxContainer/NewHighScoreLabel
-@onready var retry_button: Button = $Panel/VBoxContainer/RetryButton
-@onready var menu_button: Button = $Panel/VBoxContainer/MenuButton
+@onready var container: Control = $Container
+@onready var final_score_label: Label = $Container/Panel/VBoxContainer/FinalScoreLabel
+@onready var final_distance_label: Label = $Container/Panel/VBoxContainer/FinalDistanceLabel
+@onready var orbs_collected_label: Label = $Container/Panel/VBoxContainer/OrbsCollectedLabel
+@onready var new_high_score_label: Label = $Container/Panel/VBoxContainer/NewHighScoreLabel
+@onready var retry_button: Button = $Container/Panel/VBoxContainer/RetryButton
+@onready var menu_button: Button = $Container/Panel/VBoxContainer/MenuButton
 
 
 func _ready() -> void:
@@ -19,13 +20,16 @@ func _ready() -> void:
 	
 	# Connect to game over signal
 	GameManager.game_over.connect(_on_game_over)
+	print("GameOver: Connected to GameManager.game_over signal")
 	
 	# Start hidden
-	visible = false
+	container.visible = false
 
 
 func _on_game_over(score: int, distance: float) -> void:
-	visible = true
+	print("GameOver._on_game_over received - score: ", score, " distance: ", distance)
+	container.visible = true
+	print("GameOver screen visible set to: ", container.visible)
 	
 	# Update labels
 	if final_score_label:
@@ -46,11 +50,11 @@ func _on_game_over(score: int, distance: float) -> void:
 
 func _on_retry_pressed() -> void:
 	AudioManager.play_sfx("button")
-	visible = false
+	container.visible = false
 	GameManager.restart_game()
 
 
 func _on_menu_pressed() -> void:
 	AudioManager.play_sfx("button")
-	visible = false
+	container.visible = false
 	GameManager.go_to_menu()

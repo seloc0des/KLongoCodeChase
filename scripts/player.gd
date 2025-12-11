@@ -35,34 +35,11 @@ func _ready() -> void:
 	# Initialize trail
 	if trail_particles:
 		trail_particles.emitting = false
-	
-	# Create a guaranteed visible marker using ColorRect
-	var marker = ColorRect.new()
-	marker.color = Color.MAGENTA
-	marker.size = Vector2(60, 80)
-	marker.position = Vector2(-30, -40)  # Offset to center on player
-	marker.z_index = 100
-	add_child(marker)
-	print("Created magenta ColorRect marker on player")
-	
-	# Debug
-	print("Player _ready - position: ", position)
-	print("Player sprite node: ", sprite)
-	if sprite:
-		print("Sprite visible: ", sprite.visible)
 
-
-var debug_timer: float = 0.0
 
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
-	
-	# Debug position every second
-	debug_timer += delta
-	if debug_timer > 1.0:
-		debug_timer = 0.0
-		print("Player pos: ", position, " on_floor: ", is_on_floor(), " velocity.y: ", velocity.y)
 	
 	# Apply gravity
 	var current_gravity = gravity
@@ -161,11 +138,7 @@ func hit_obstacle() -> void:
 
 
 func die() -> void:
-	print("DIE CALLED - position: ", position)
-	print_stack()
-	# TEMPORARILY DISABLED FOR DEBUGGING
-	return
-	
+	print("Player.die() called, is_dead: ", is_dead)
 	if is_dead:
 		return
 	
@@ -180,6 +153,7 @@ func die() -> void:
 	
 	# Emit signal
 	died.emit()
+	print("Player: died signal emitted, calling GameManager.end_game()")
 	
 	# Notify game manager
 	GameManager.end_game()

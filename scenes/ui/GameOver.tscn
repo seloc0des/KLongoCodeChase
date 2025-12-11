@@ -2,17 +2,20 @@
 
 [ext_resource type="Script" path="res://scripts/game_over.gd" id="1_gameover"]
 
-[node name="GameOver" type="Control"]
+[node name="GameOver" type="CanvasLayer"]
+layer = 10
 process_mode = 3
+script = ExtResource("1_gameover")
+
+[node name="Container" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_gameover")
 
-[node name="Overlay" type="ColorRect" parent="."]
+[node name="Overlay" type="ColorRect" parent="Container"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,7 +24,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.1, 0, 0, 0.8)
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="Container"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -35,19 +38,19 @@ offset_bottom = 225.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/Panel"]
 layout_mode = 2
 theme_override_constants/separation = 15
 alignment = 1
 
-[node name="Title" type="Label" parent="Panel/VBoxContainer"]
+[node name="Title" type="Label" parent="Container/Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
 text = "GAME OVER"
 horizontal_alignment = 1
 
-[node name="NewHighScoreLabel" type="Label" parent="Panel/VBoxContainer"]
+[node name="NewHighScoreLabel" type="Label" parent="Container/Panel/VBoxContainer"]
 visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
@@ -55,39 +58,39 @@ theme_override_colors/font_color = Color(1, 0.85, 0, 1)
 text = "🏆 NEW HIGH SCORE! 🏆"
 horizontal_alignment = 1
 
-[node name="Spacer" type="Control" parent="Panel/VBoxContainer"]
+[node name="Spacer" type="Control" parent="Container/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="FinalScoreLabel" type="Label" parent="Panel/VBoxContainer"]
+[node name="FinalScoreLabel" type="Label" parent="Container/Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Score: 0"
 horizontal_alignment = 1
 
-[node name="FinalDistanceLabel" type="Label" parent="Panel/VBoxContainer"]
+[node name="FinalDistanceLabel" type="Label" parent="Container/Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Distance: 0m"
 horizontal_alignment = 1
 
-[node name="OrbsCollectedLabel" type="Label" parent="Panel/VBoxContainer"]
+[node name="OrbsCollectedLabel" type="Label" parent="Container/Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Orbs: 0"
 horizontal_alignment = 1
 
-[node name="Spacer2" type="Control" parent="Panel/VBoxContainer"]
+[node name="Spacer2" type="Control" parent="Container/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="RetryButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="RetryButton" type="Button" parent="Container/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "↻ RETRY"
 
-[node name="MenuButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="MenuButton" type="Button" parent="Container/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20

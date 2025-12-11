@@ -67,8 +67,8 @@ offset_bottom = 500.0
 theme_override_constants/separation = 150
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(360, 640)
-anchor_mode = 0
+position = Vector2(360, 900)
+anchor_mode = 1
 enabled = true
 
 [node name="LevelManager" type="Node2D" parent="."]

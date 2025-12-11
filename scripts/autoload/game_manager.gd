@@ -61,8 +61,11 @@ func reset_run() -> void:
 
 
 func end_game() -> void:
+	print("GameManager.end_game() called - score: ", score, " distance: ", distance)
 	current_state = GameState.GAME_OVER
+	get_tree().paused = true
 	game_over.emit(score, distance)
+	print("game_over signal emitted")
 	SaveManager.update_stats(score, distance, orbs_collected)
 
 

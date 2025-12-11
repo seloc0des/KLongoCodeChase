@@ -6,31 +6,19 @@ extends Node2D
 @onready var background: ParallaxBackground = $ParallaxBackground
 @onready var hud: CanvasLayer = $HUD
 @onready var pause_menu: Control = $PauseMenu
-@onready var game_over_screen: Control = $GameOver
+@onready var game_over_screen: CanvasLayer = $GameOver
 
 const PLAYER_SCREEN_X: float = 150.0  # Player stays at this X position on screen
 const GROUND_Y: float = 1148.0  # Ground level for player
+const CAMERA_Y: float = 900.0  # Camera Y position to show player in lower-middle of screen
 
 
 func _ready() -> void:
-	# Create a TEST marker using ColorRect (since obstacles use ColorRect and are visible)
-	var test_marker = ColorRect.new()
-	test_marker.color = Color.RED
-	test_marker.size = Vector2(100, 100)
-	test_marker.position = Vector2(310, 590)  # Center of screen (offset by half size)
-	test_marker.z_index = 1000
-	add_child(test_marker)
-	print("Created RED ColorRect test marker at screen center")
-	
 	# Initialize player position
 	player.position = Vector2(PLAYER_SCREEN_X, GROUND_Y)
-	print("Player initial position: ", player.position)
-	print("Player visible: ", player.visible)
-	print("Player sprite: ", player.get_node("Sprite"))
 	
 	# Set up camera
-	camera.position = Vector2(360, 640)
-	print("Camera position: ", camera.position)
+	camera.position = Vector2(360, CAMERA_Y)
 	
 	# Initialize level manager
 	level_manager.initialize(camera)
@@ -80,7 +68,7 @@ func restart() -> void:
 	# Reset everything
 	player.reset()
 	player.position = Vector2(PLAYER_SCREEN_X, GROUND_Y)
-	camera.position = Vector2(360, 640)
+	camera.position = Vector2(360, CAMERA_Y)
 	level_manager.reset()
 	level_manager.initialize(camera)
 	GameManager.start_game()
