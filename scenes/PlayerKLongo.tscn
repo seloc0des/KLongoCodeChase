@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://player_klongo"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_player"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
+size = Vector2(48, 64)
+
+[sub_resource type="Animation" id="Animation_idle"]
+resource_name = "idle"
+length = 1.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 0.95), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_main"]
+_data = {
+"idle": SubResource("Animation_idle")
+}
+
+[node name="PlayerKLongo" type="CharacterBody2D"]
+collision_layer = 1
+collision_mask = 6
+script = ExtResource("1_player")
+
+[node name="Sprite" type="ColorRect" parent="."]
+offset_left = -24.0
+offset_top = -32.0
+offset_right = 24.0
+offset_bottom = 32.0
+pivot_offset = Vector2(24, 32)
+color = Color(0.2, 0.6, 0.9, 1)
+
+[node name="Face" type="Label" parent="Sprite"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 8.0
+offset_right = 44.0
+offset_bottom = 56.0
+text = "K"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="HitArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 12
+
+[node name="HitShape" type="CollisionShape2D" parent="HitArea"]
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_main")
+}
+autoplay = "idle"
+
+[node name="TrailParticles" type="GPUParticles2D" parent="."]
+position = Vector2(-24, 0)
+emitting = false
+amount = 20
+process_material = null
+lifetime = 0.5
+
+[connection signal="area_entered" from="HitArea" to="." method="_on_hit_area_entered"]
+[connection signal="body_entered" from="HitArea" to="." method="_on_hit_area_body_entered"]

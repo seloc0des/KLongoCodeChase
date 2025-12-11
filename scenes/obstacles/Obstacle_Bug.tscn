@@ -1,0 +1,78 @@
+[gd_scene load_steps=4 format=3 uid="uid://obstacle_bug"]
+
+[ext_resource type="Script" path="res://scripts/obstacle_bug.gd" id="1_bug"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bug"]
+radius = 25.0
+
+[sub_resource type="Animation" id="Animation_float"]
+resource_name = "float"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -20), Vector2(0, 0)]
+}
+
+[node name="Obstacle_Bug" type="Area2D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_bug")
+obstacle_type = "bug"
+highlight_color = Color(1, 0.5, 0, 1)
+
+[node name="Sprite" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+color = Color(0.6, 0.1, 0.6, 1)
+
+[node name="Label" type="Label" parent="Sprite"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+text = "BUG"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bug")
+
+[node name="WarningIndicator" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -45.0
+offset_right = 30.0
+offset_bottom = -30.0
+color = Color(1, 1, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "float"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

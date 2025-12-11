@@ -1,0 +1,56 @@
+extends Control
+
+@onready var final_score_label: Label = $Panel/VBoxContainer/FinalScoreLabel
+@onready var final_distance_label: Label = $Panel/VBoxContainer/FinalDistanceLabel
+@onready var orbs_collected_label: Label = $Panel/VBoxContainer/OrbsCollectedLabel
+@onready var new_high_score_label: Label = $Panel/VBoxContainer/NewHighScoreLabel
+@onready var retry_button: Button = $Panel/VBoxContainer/RetryButton
+@onready var menu_button: Button = $Panel/VBoxContainer/MenuButton
+
+
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	# Connect button signals
+	if retry_button:
+		retry_button.pressed.connect(_on_retry_pressed)
+	if menu_button:
+		menu_button.pressed.connect(_on_menu_pressed)
+	
+	# Connect to game over signal
+	GameManager.game_over.connect(_on_game_over)
+	
+	# Start hidden
+	visible = false
+
+
+func _on_game_over(score: int, distance: float) -> void:
+	visible = true
+	
+	# Update labels
+	if final_score_label:
+		final_score_label.text = "Score: %d" % score
+	if final_distance_label:
+		final_distance_label.text = "Distance: %.0fm" % distance
+	if orbs_collected_label:
+		orbs_collected_label.text = "Orbs: %d" % GameManager.orbs_collected
+	
+	# Check for new high score
+	if new_high_score_label:
+		if score >= SaveManager.get_high_score():
+			new_high_score_label.visible = true
+			new_high_score_label.text = "🏆 NEW HIGH SCORE! 🏆"
+		else:
+			new_high_score_label.visible = false
+
+
+func _on_retry_pressed() -> void:
+	AudioManager.play_sfx("button")
+	visible = false
+	GameManager.restart_game()
+
+
+func _on_menu_pressed() -> void:
+	AudioManager.play_sfx("button")
+	visible = false
+	GameManager.go_to_menu()

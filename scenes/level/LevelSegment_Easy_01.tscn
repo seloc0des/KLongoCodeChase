@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://segment_easy_01"]
+
+[ext_resource type="Script" path="res://scripts/level_segment.gd" id="1_segment"]
+[ext_resource type="PackedScene" uid="uid://obstacle_chair" path="res://scenes/obstacles/Obstacle_Chair.tscn" id="2_chair"]
+[ext_resource type="PackedScene" uid="uid://pickup_focusorb" path="res://scenes/pickups/Pickup_FocusOrb.tscn" id="3_orb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
+size = Vector2(720, 100)
+
+[node name="LevelSegment_Easy_01" type="Node2D"]
+script = ExtResource("1_segment")
+segment_difficulty = 0
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(360, 1230)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("RectangleShape2D_ground")
+
+[node name="GroundVisual" type="ColorRect" parent="Ground"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -50.0
+offset_right = 360.0
+offset_bottom = 50.0
+color = Color(0.3, 0.3, 0.35, 1)
+
+[node name="Chair1" parent="." instance=ExtResource("2_chair")]
+position = Vector2(300, 1150)
+
+[node name="Orb1" parent="." instance=ExtResource("3_orb")]
+position = Vector2(150, 1100)
+
+[node name="Orb2" parent="." instance=ExtResource("3_orb")]
+position = Vector2(500, 1100)
+
+[node name="Orb3" parent="." instance=ExtResource("3_orb")]
+position = Vector2(650, 1050)

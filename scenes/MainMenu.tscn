@@ -1,0 +1,139 @@
+[gd_scene load_steps=3 format=3 uid="uid://mainmenu"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_menu"]
+[ext_resource type="PackedScene" uid="uid://settings_panel" path="res://scenes/ui/SettingsPanel.tscn" id="2_settings"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12, 0.12, 0.15, 1)
+
+[node name="TitleContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 150.0
+offset_right = 200.0
+offset_bottom = 350.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="TitleContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "KLONGO'S"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="TitleContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "CODE CHASE"
+horizontal_alignment = 1
+
+[node name="CharacterPreview" type="ColorRect" parent="TitleContainer"]
+custom_minimum_size = Vector2(80, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+color = Color(0.2, 0.6, 0.9, 1)
+
+[node name="Label" type="Label" parent="TitleContainer/CharacterPreview"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -20.0
+offset_right = 30.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "K"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 100.0
+offset_right = 150.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="PlayButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "▶ PLAY"
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "⚙ SETTINGS"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "✕ QUIT"
+
+[node name="StatsContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -200.0
+offset_right = 150.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="HighScoreLabel" type="Label" parent="StatsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "High Score: 0"
+horizontal_alignment = 1
+
+[node name="BestDistanceLabel" type="Label" parent="StatsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Best Distance: 0m"
+horizontal_alignment = 1
+
+[node name="TotalOrbsLabel" type="Label" parent="StatsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Total Orbs: 0"
+horizontal_alignment = 1
+
+[node name="SettingsPanel" parent="." instance=ExtResource("2_settings")]
+visible = false
