@@ -11,7 +11,7 @@ signal landed
 @export var coyote_time: float = 0.1
 @export var jump_buffer_time: float = 0.1
 
-@onready var sprite: ColorRect = $Sprite
+@onready var sprite: Polygon2D = $Sprite
 @onready var collision_shape: CollisionShape2D = $CollisionShape
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var trail_particles: GPUParticles2D = $TrailParticles
@@ -35,11 +35,34 @@ func _ready() -> void:
 	# Initialize trail
 	if trail_particles:
 		trail_particles.emitting = false
+	
+	# Create a guaranteed visible marker using ColorRect
+	var marker = ColorRect.new()
+	marker.color = Color.MAGENTA
+	marker.size = Vector2(60, 80)
+	marker.position = Vector2(-30, -40)  # Offset to center on player
+	marker.z_index = 100
+	add_child(marker)
+	print("Created magenta ColorRect marker on player")
+	
+	# Debug
+	print("Player _ready - position: ", position)
+	print("Player sprite node: ", sprite)
+	if sprite:
+		print("Sprite visible: ", sprite.visible)
 
+
+var debug_timer: float = 0.0
 
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
+	
+	# Debug position every second
+	debug_timer += delta
+	if debug_timer > 1.0:
+		debug_timer = 0.0
+		print("Player pos: ", position, " on_floor: ", is_on_floor(), " velocity.y: ", velocity.y)
 	
 	# Apply gravity
 	var current_gravity = gravity
@@ -138,6 +161,11 @@ func hit_obstacle() -> void:
 
 
 func die() -> void:
+	print("DIE CALLED - position: ", position)
+	print_stack()
+	# TEMPORARILY DISABLED FOR DEBUGGING
+	return
+	
 	if is_dead:
 		return
 	

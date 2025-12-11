@@ -32,20 +32,15 @@ collision_layer = 1
 collision_mask = 6
 script = ExtResource("1_player")
 
-[node name="Sprite" type="ColorRect" parent="."]
-offset_left = -24.0
-offset_top = -32.0
-offset_right = 24.0
-offset_bottom = 32.0
-pivot_offset = Vector2(24, 32)
+[node name="Sprite" type="Polygon2D" parent="."]
 color = Color(0.2, 0.6, 0.9, 1)
+polygon = PackedVector2Array(-24, -32, 24, -32, 24, 32, -24, 32)
 
 [node name="Face" type="Label" parent="Sprite"]
-layout_mode = 0
-offset_left = 4.0
-offset_top = 8.0
-offset_right = 44.0
-offset_bottom = 56.0
+offset_left = -20.0
+offset_top = -12.0
+offset_right = 20.0
+offset_bottom = 12.0
 text = "K"
 horizontal_alignment = 1
 vertical_alignment = 1

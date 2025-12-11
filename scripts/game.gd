@@ -13,11 +13,24 @@ const GROUND_Y: float = 1148.0  # Ground level for player
 
 
 func _ready() -> void:
+	# Create a TEST marker using ColorRect (since obstacles use ColorRect and are visible)
+	var test_marker = ColorRect.new()
+	test_marker.color = Color.RED
+	test_marker.size = Vector2(100, 100)
+	test_marker.position = Vector2(310, 590)  # Center of screen (offset by half size)
+	test_marker.z_index = 1000
+	add_child(test_marker)
+	print("Created RED ColorRect test marker at screen center")
+	
 	# Initialize player position
 	player.position = Vector2(PLAYER_SCREEN_X, GROUND_Y)
+	print("Player initial position: ", player.position)
+	print("Player visible: ", player.visible)
+	print("Player sprite: ", player.get_node("Sprite"))
 	
 	# Set up camera
 	camera.position = Vector2(360, 640)
+	print("Camera position: ", camera.position)
 	
 	# Initialize level manager
 	level_manager.initialize(camera)
