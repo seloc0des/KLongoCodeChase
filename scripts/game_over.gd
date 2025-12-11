@@ -20,16 +20,13 @@ func _ready() -> void:
 	
 	# Connect to game over signal
 	GameManager.game_over.connect(_on_game_over)
-	print("GameOver: Connected to GameManager.game_over signal")
 	
 	# Start hidden
 	container.visible = false
 
 
 func _on_game_over(score: int, distance: float) -> void:
-	print("GameOver._on_game_over received - score: ", score, " distance: ", distance)
 	container.visible = true
-	print("GameOver screen visible set to: ", container.visible)
 	
 	# Update labels
 	if final_score_label:

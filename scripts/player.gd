@@ -138,7 +138,6 @@ func hit_obstacle() -> void:
 
 
 func die() -> void:
-	print("Player.die() called, is_dead: ", is_dead)
 	if is_dead:
 		return
 	
@@ -153,7 +152,6 @@ func die() -> void:
 	
 	# Emit signal
 	died.emit()
-	print("Player: died signal emitted, calling GameManager.end_game()")
 	
 	# Notify game manager
 	GameManager.end_game()
